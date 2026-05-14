@@ -1,0 +1,31 @@
+bundle:
+  name: cpp_sdp
+
+resources:
+  pipelines:
+    cpp_sdp_pipeline:
+      name: CPP_SDP
+      catalog: ronguerrero
+      schema: cpp_sdp_demo
+      photon: true
+      serverless: true
+      continuous: false
+      channel: CURRENT
+      libraries:
+        - glob:
+            include: ./transformations/**
+
+targets:
+  dev:
+    mode: development
+    default: true
+    workspace:
+      host: https://e2-demo-field-eng.cloud.databricks.com
+
+  prod:
+    mode: production
+    workspace:
+      host: https://e2-demo-field-eng.cloud.databricks.com
+      root_path: /Shared/.bundle/prod/${bundle.name}
+    run_as:
+      user_name: ron.guerrero@databricks.com

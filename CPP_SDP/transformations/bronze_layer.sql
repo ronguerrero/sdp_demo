@@ -7,7 +7,7 @@ CREATE OR REFRESH STREAMING TABLE bronze_trade_executions(
   CONSTRAINT positive_price EXPECT (price > 0),
   CONSTRAINT valid_currency EXPECT (currency IS NOT NULL)
 )
-COMMENT "Bronze trade executions with data quality monitoring"
+COMMENT "Bronze trade executions with data quality monitoring test"
 AS SELECT * FROM STREAM(ronguerrero.cpp_investment_ops.raw_trade_executions);
 
 CREATE OR REFRESH STREAMING TABLE bronze_securities_master(

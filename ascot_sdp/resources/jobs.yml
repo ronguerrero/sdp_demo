@@ -1,7 +1,7 @@
 resources:
   jobs:
     generate_data_job:
-      name: "Ascot Insurance Ops - Data Generation"
+      name: "[${bundle.target}] Ascot Insurance Ops - Data Generation"
       tasks:
         - task_key: generate_data
           notebook_task:

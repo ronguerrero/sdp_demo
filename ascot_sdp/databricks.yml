@@ -1,0 +1,41 @@
+bundle:
+  name: ascot_insurance_ops
+
+include:
+  - resources/*.yml
+
+variables:
+  catalog:
+    description: Unity Catalog catalog
+    default: ronguerrero
+  schema:
+    description: Schema for Ascot Insurance Ops
+    default: ascot_insurance_ops
+  warehouse_id:
+    description: SQL warehouse ID
+    default: 4b9b953939869799
+
+targets:
+  dev:
+    mode: development
+    default: true
+    workspace:
+      host: https://e2-demo-field-eng.cloud.databricks.com
+      root_path: /Workspace/Users/${workspace.current_user.userName}/.bundle/${bundle.name}/${bundle.target}
+
+  uat:
+    workspace:
+      host: https://e2-demo-field-eng.cloud.databricks.com
+      root_path: /Workspace/Users/${workspace.current_user.userName}/.bundle/${bundle.name}/${bundle.target}
+    variables:
+      schema: ascot_insurance_ops_uat
+
+  prod:
+    mode: production
+    workspace:
+      host: https://e2-demo-field-eng.cloud.databricks.com
+      root_path: /Shared/.bundle/${bundle.name}/${bundle.target}
+    variables:
+      schema: ascot_insurance_ops_prod
+    run_as:
+      user_name: ron.guerrero@databricks.com

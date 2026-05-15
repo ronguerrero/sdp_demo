@@ -1,0 +1,24 @@
+resources:
+  jobs:
+    generate_data_job:
+      name: "Ascot Insurance Ops - Data Generation"
+      tasks:
+        - task_key: generate_data
+          notebook_task:
+            notebook_path: ../transformations/01_generate_data.py
+            base_parameters:
+              catalog: ${var.catalog}
+              schema: ${var.schema}
+            source: WORKSPACE
+          environment_key: data_gen_env
+        - task_key: run_pipeline
+          depends_on:
+            - task_key: generate_data
+          pipeline_task:
+            pipeline_id: ${resources.pipelines.ascot_insurance_pipeline.id}
+      environments:
+        - environment_key: data_gen_env
+          spec:
+            client: "4"
+            dependencies:
+              - "dbldatagen"

@@ -1,0 +1,26 @@
+resources:
+  pipelines:
+    ascot_insurance_pipeline:
+      name: "Ascot Insurance Ops - Declarative Pipeline"
+      catalog: ${var.catalog}
+      target: ${var.schema}
+      development: true
+      channel: "CURRENT"
+      photon: true
+      serverless: true
+      allow_duplicate_names: true
+      libraries:
+        - notebook:
+            path: ../transformations/02_bronze.py
+        - notebook:
+            path: ../transformations/03_silver.py
+        - notebook:
+            path: ../transformations/04_gold.py
+      configuration:
+        ins.catalog: ${var.catalog}
+        ins.schema: ${var.schema}
+        ins.base_currency: "USD"
+        ins.max_single_risk_pct: "10.0"
+        ins.max_peril_concentration_pct: "25.0"
+        ins.min_loss_ratio_threshold: "0.75"
+        ins.max_aggregate_limit_usd: "500000000"

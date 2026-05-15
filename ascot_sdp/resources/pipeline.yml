@@ -1,7 +1,7 @@
 resources:
   pipelines:
     ascot_insurance_pipeline:
-      name: "Ascot Insurance Ops - Declarative Pipeline"
+      name: "[${bundle.target}] Ascot Insurance Ops - Declarative Pipeline"
       catalog: ${var.catalog}
       target: ${var.schema}
       development: true
